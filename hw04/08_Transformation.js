@@ -103,7 +103,7 @@ function setupBuffers() {
     gl.bindVertexArray(null);
 }
 
-let angle1 = 0, angle2 = 0, angle3 = 0;
+let angle1 = 0, angle2 = 0, angle3 = 0, angle4 = 0;
 
 function render() {
     gl.clear(gl.COLOR_BUFFER_BIT);
@@ -136,9 +136,9 @@ function render() {
     let model3 = mat4.create();
     mat4.rotateZ(model3, model3, angle2); // 2번의 공전 위치로 이동
     mat4.translate(model3, model3, [0.7, 0.0, 0.0]);
-    mat4.rotateZ(model3, model3, angle3); // 2번 자전 위치로 이동
+    mat4.rotateZ(model3, model3, angle4); // 2번 자전 위치로 이동
     mat4.translate(model3, model3, [0.2, 0.0, 0.0]); // 3번 공전
-    mat4.rotateZ(model3, model3, angle3 * 2); // 3번 자전
+    mat4.rotateZ(model3, model3, angle3); // 3번 자전
     mat4.scale(model3, model3, [0.05, 0.05, 1]);
     shader.setVec4("a_color", [0.0, 0.0, 1.0, 1.0]);
     shader.setMat4("u_transform", model3);
@@ -153,6 +153,7 @@ function animate(currentTime) {
     angle1 += (Math.PI / 4) * deltaTime; // 45 deg/sec
     angle2 += (Math.PI / 6) * deltaTime; // 30 deg/sec (2번 공전)
     angle3 += (Math.PI) * deltaTime;     // 180 deg/sec (2,3번 자전)
+    angle4 += (Math.PI * 2) * deltaTime;     // 360 deg/sec (3번 공공전)
 
     render();
     requestAnimationFrame(animate);
