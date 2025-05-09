@@ -8,7 +8,7 @@ in vec3 normal;
 in vec2 texCoord;
 
 struct Material {
-    sampler2D diffuse; // diffuse map
+    vec3 diffuse; // diffuse map
     vec3 specular;     // 표면의 specular color
     float shininess;   // specular 반짝임 정도
 };
@@ -29,16 +29,17 @@ uniform float toonLevels;
 
 void main() {
     // 1 ambient
-    vec3 rgb = vec3(1.0, 0.5, 0.0);
+    vec3 rgb = material.diffuse;
     vec3 ambient = light.ambient * rgb;
 
     // 2 diffuse (Lambert)
     vec3 norm    = normalize(normal);
     vec3 lightDir = normalize(light.direction);
-    float rawDiff = max(dot(norm, lightDir), 0.0);
+    float dotNormLight = dot(norm, lightDir);
+    float rawDiff = max(dotNormLight, 0.0);
 
     float diffIdx = floor(rawDiff * toonLevels);
-    float diff    = (diffIdx + 0.5) / toonLevels;
+    float diff    = diffIdx / toonLevels;
 
     vec3 diffuse = light.diffuse * diff * rgb;
 
@@ -47,10 +48,10 @@ void main() {
     vec3 reflectDir = reflect(-lightDir, norm);
 
     float rawSpec = 0.0;
-    if (rawDiff > 0.0) {
+    if (dotNormLight > 0.0) {
         rawSpec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
         float specIdx = floor(rawSpec * toonLevels);
-        rawSpec = (specIdx + 0.5) / toonLevels;
+        rawSpec =  specIdx / toonLevels;
     }
     vec3 specular = light.specular * rawSpec * material.specular;
 
