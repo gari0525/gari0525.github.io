@@ -69,7 +69,7 @@ function createPlanet(planet) {
   const group = new THREE.Group();
   const geo = new THREE.SphereGeometry(planet.radius, 32, 32);
   const mat = new THREE.MeshStandardMaterial({
-        map: loader.load(`textures/${planet.texture}`),
+        map: loader.load(`./textures/${planet.texture}`),
         roughness: 0.8,
         metalness: 0.2
     });
