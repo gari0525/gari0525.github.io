@@ -43,19 +43,19 @@ scene.add(sun);
 const planetsData = [
   {
     name: 'Mercury', radius: 1.5, distance: 20, color: '#a6a6a6',
-    rotationSpeed: 0.02, orbitSpeed: 0.02, texture: 'mercury.jpg'
+    rotationSpeed: 0.02, orbitSpeed: 0.02, texture: 'Mercury.jpg'
   },
   {
     name: 'Venus', radius: 3, distance: 35, color: '#e39e1c',
-    rotationSpeed: 0.015, orbitSpeed: 0.015, texture: 'venus.jpg'
+    rotationSpeed: 0.015, orbitSpeed: 0.015, texture: 'Venus.jpg'
   },
   {
     name: 'Earth', radius: 3.5, distance: 50, color: '#3498db',
-    rotationSpeed: 0.01, orbitSpeed: 0.01, texture: 'earth.jpg'
+    rotationSpeed: 0.01, orbitSpeed: 0.01, texture: 'Earth.jpg'
   },
   {
     name: 'Mars', radius: 2.5, distance: 65, color: '#c0392b',
-    rotationSpeed: 0.008, orbitSpeed: 0.008, texture: 'mars.jpg'
+    rotationSpeed: 0.008, orbitSpeed: 0.008, texture: 'Mars.jpg'
   }
 ];
 
@@ -69,7 +69,7 @@ function createPlanet(planet) {
   const group = new THREE.Group();
   const geo = new THREE.SphereGeometry(planet.radius, 32, 32);
   const mat = new THREE.MeshStandardMaterial({
-        map: loader.load(`textures/${planet.texture}`),
+        map: loader.load(`./textures/${planet.texture}`),
         roughness: 0.8,
         metalness: 0.2
     });
